@@ -1,10 +1,20 @@
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import useReveal from "../hooks/useReveal.js";
 
-export default function ProjectCard({ project, onNavigate }) {
+export default function ProjectCard({ project, onNavigate, delay = 0 }) {
+  const { ref, revealClass, revealStyle } = useReveal(delay);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   return (
-    <article className="project-card">
-      <div className="project-image">
-        <img src={project.image} alt={`Preview do projeto ${project.title}`} />
+    <article ref={ref} data-type={project.type} className={`project-card ${revealClass}`} style={revealStyle}>
+      <div className={`project-image ${imgLoaded ? "img-loaded" : ""}`}>
+        <img
+          src={project.image}
+          alt={`Preview do projeto ${project.title}`}
+          loading="lazy"
+          onLoad={() => setImgLoaded(true)}
+        />
       </div>
       <div className="project-body">
         <div>
@@ -18,7 +28,7 @@ export default function ProjectCard({ project, onNavigate }) {
           ))}
         </div>
         <button type="button" onClick={() => onNavigate("/contato")}>
-          Conversar sobre projeto <ArrowUpRight size={16} />
+          <span>Conversar sobre projeto</span> <ArrowUpRight size={16} />
         </button>
       </div>
     </article>

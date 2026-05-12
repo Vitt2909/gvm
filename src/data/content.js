@@ -1,18 +1,10 @@
 import {
-  ArrowUpRight,
-  BadgeCheck,
-  BarChart3,
   Bot,
-  BriefcaseBusiness,
-  CheckCircle2,
   Code2,
   Compass,
   FileCode2,
   Flag,
-  Globe2,
-  Handshake,
   Headphones,
-  Layers3,
   LineChart,
   Mail,
   MapPin,
@@ -23,10 +15,8 @@ import {
   Rocket,
   Search,
   ShieldCheck,
-  Sparkles,
   Target,
-  UsersRound,
-  Zap
+  UsersRound
 } from "lucide-react";
 
 export const assets = {
@@ -98,45 +88,18 @@ export const services = [
 ];
 
 export const proofPoints = [
-  { title: "Estratégia alinhada", text: "Planejamento conectado aos objetivos do negócio.", icon: Target },
-  { title: "Design que vende", text: "Interfaces bonitas, claras e pensadas para conversão.", icon: Palette },
-  { title: "Performance real", text: "Experiências rápidas, responsivas e fáceis de usar.", icon: LineChart },
-  { title: "Atendimento próximo", text: "Contato direto com quem entende e executa o projeto.", icon: Headphones }
+  { title: "Estratégia alinhada",  text: "Planejamento conectado aos objetivos do negócio.",                        icon: Target     },
+  { title: "Design que vende",     text: "Interfaces bonitas, claras e pensadas para conversão.",                   icon: Palette    },
+  { title: "Performance real",     text: "Experiências rápidas, responsivas e fáceis de usar.",                     icon: LineChart  },
+  { title: "Atendimento próximo",  text: "Contato direto com quem entende e executa o projeto.",                    icon: Headphones },
+  { title: "Entrega no prazo",     text: "Comprometimento com cronograma e transparência em cada etapa.",           icon: ShieldCheck}
 ];
 
 export const processSteps = [
-  { title: "Descoberta", text: "Entendemos seu negócio, objetivos, público e desafios.", icon: Search },
-  { title: "Estratégia", text: "Definimos estrutura, prioridades e plano de execução.", icon: Flag },
-  { title: "Execução", text: "Criamos design, desenvolvimento e integrações com foco em resultado.", icon: Code2 },
-  { title: "Crescimento", text: "Acompanhamos, ajustamos e evoluímos sua presença digital.", icon: Rocket }
-];
-
-export const plans = [
-  {
-    name: "Essencial",
-    price: "R$ 1.490",
-    description: "Ideal para começar sua presença digital.",
-    icon: MonitorSmartphone,
-    features: ["Site responsivo", "Até 5 páginas", "Formulário de contato", "SEO básico"],
-    cta: "Começar agora"
-  },
-  {
-    name: "Profissional",
-    price: "R$ 2.790",
-    description: "Para crescer com estratégia e performance.",
-    icon: BarChart3,
-    featured: true,
-    features: ["Site completo", "SEO avançado", "Integração com WhatsApp", "Relatórios mensais", "Suporte prioritário"],
-    cta: "Começar agora"
-  },
-  {
-    name: "Empresarial",
-    price: "Sob consulta",
-    description: "Soluções completas e personalizadas.",
-    icon: Globe2,
-    features: ["Soluções sob medida", "Funcionalidades avançadas", "Integrações e automações", "Treinamento", "Suporte dedicado"],
-    cta: "Falar com especialista"
-  }
+  { title: "Descoberta",   text: "Entendemos seu negócio, objetivos, público e desafios.",                          icon: Search },
+  { title: "Estratégia",  text: "Definimos estrutura, prioridades e plano de execução.",                           icon: Flag   },
+  { title: "Execução",    text: "Criamos design, desenvolvimento e integrações com foco em resultado.",             icon: Code2  },
+  { title: "Crescimento", text: "Acompanhamos, ajustamos e evoluímos sua presença digital.",                       icon: Rocket }
 ];
 
 export const projects = [
@@ -195,26 +158,29 @@ export const founders = [
     name: "Gustavo",
     role: "Estratégia comercial",
     image: assets.founders.gustavo,
-    text: "Responsável por posicionamento, relacionamento com clientes e oportunidades comerciais."
+    text: "Responsável por posicionamento, relacionamento com clientes e oportunidades comerciais.",
+    linkedin: "https://www.linkedin.com/in/lu%C3%ADs-gustavo-88a50b408/"
   },
   {
     name: "Vítor",
     role: "Tecnologia e produto",
     image: assets.founders.vitor,
-    text: "Conduz arquitetura, desenvolvimento e experiência digital dos projetos."
+    text: "Conduz arquitetura, desenvolvimento e experiência digital dos projetos.",
+    linkedin: "https://www.linkedin.com/in/vitorgrowth/"
   },
   {
     name: "Mayllon",
     role: "Design e operação",
     image: assets.founders.mayllon,
-    text: "Cuida da consistência visual, organização de entregas e qualidade operacional."
+    text: "Cuida da consistência visual, organização de entregas e qualidade operacional.",
+    linkedin: "https://www.linkedin.com/in/mayllon-mattos-336496268/"
   }
 ];
 
 export const contactMethods = [
-  { title: "WhatsApp oficial", text: "Fale com a equipe e explique seu projeto em poucos minutos.", icon: MessageCircle },
-  { title: "E-mail", text: "contato@gvmdigital.com.br", icon: Mail },
-  { title: "Atendimento online", text: "Reuniões remotas para empresas de todo o Brasil.", icon: MapPin }
+  { title: "WhatsApp oficial",    text: "Fale com a equipe e explique seu projeto em poucos minutos.", icon: MessageCircle },
+  { title: "E-mail",              text: "contato.gvmdigital@gmail.com",                                icon: Mail         },
+  { title: "Atendimento online",  text: "Reuniões remotas para empresas de todo o Brasil.",            icon: MapPin       }
 ];
 
 export const faqs = [
@@ -231,19 +197,7 @@ export const faqs = [
     answer: "Sim. Podemos criar logotipo, paleta, tipografia e aplicações para manter a presença da marca consistente."
   },
   {
-    question: "O formulário já envia para algum sistema?",
-    answer: "Nesta primeira versão ele prepara a solicitação no frontend. Integrações com e-mail, CRM ou automações podem entrar em uma etapa posterior."
+    question: "Como funciona o processo de contato?",
+    answer: "Você preenche o formulário com os dados do projeto e a mensagem é enviada diretamente para nosso WhatsApp. Respondemos em até 24 horas."
   }
 ];
-
-export const Icons = {
-  ArrowUpRight,
-  BadgeCheck,
-  BriefcaseBusiness,
-  CheckCircle2,
-  Handshake,
-  Layers3,
-  ShieldCheck,
-  Sparkles,
-  Zap
-};

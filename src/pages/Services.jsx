@@ -1,19 +1,22 @@
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, FileCheck, MessageCircle, Search } from "lucide-react";
 import ButtonLink from "../components/ButtonLink.jsx";
 import CTASection from "../components/CTASection.jsx";
 import PageIntro from "../components/PageIntro.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionHeader from "../components/SectionHeader.jsx";
 import ServiceCard from "../components/ServiceCard.jsx";
-import { assets, faqs, plans, processSteps, services } from "../data/content.js";
+import { assets, faqs, processSteps, services } from "../data/content.js";
 
 export default function Services({ onNavigate }) {
   return (
     <>
       <PageIntro
         onNavigate={onNavigate}
+        label="Nossos Serviços"
         title={'Soluções digitais para posicionar melhor o <span>seu negócio</span>'}
         text="Ajudamos empresas a ganhar visibilidade, gerar autoridade e converter mais com estratégia, design e tecnologia."
         image={assets.heroDevices}
+        secondaryCta={{ label: "Falar no WhatsApp", href: "https://wa.me/559284214298?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20GVM%20Digital%20sobre%20um%20projeto.", external: true }}
       />
 
       <section className="section">
@@ -23,8 +26,8 @@ export default function Services({ onNavigate }) {
             text="De uma primeira presença online a uma operação digital mais completa, a GVM estrutura o caminho com clareza."
           />
           <div className="services-grid">
-            {services.map((service) => (
-              <ServiceCard key={service.title} service={service} compact onNavigate={onNavigate} />
+            {services.map((service, i) => (
+              <ServiceCard key={service.title} service={service} compact onNavigate={onNavigate} delay={i * 80} />
             ))}
           </div>
         </div>
@@ -38,10 +41,10 @@ export default function Services({ onNavigate }) {
             text="Cada entrega combina estratégia, design e execução técnica para criar valor real para sua empresa."
           />
           <div className="service-detail-grid">
-            {services.map((service) => {
+            {services.map((service, i) => {
               const Icon = service.icon;
               return (
-                <article key={service.title}>
+                <Reveal as="article" key={service.title} delay={i * 80}>
                   <Icon size={26} />
                   <div>
                     <h3>{service.title}</h3>
@@ -52,42 +55,44 @@ export default function Services({ onNavigate }) {
                       ))}
                     </ul>
                   </div>
-                </article>
+                </Reveal>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section dark-section">
         <div className="container">
           <SectionHeader
+            invert
             centered
-            title={'Planos e serviços para cada etapa do seu <span>crescimento</span>'}
-            text="Valores de referência para começar com clareza. Projetos sob medida são ajustados após diagnóstico."
+            label="Sem pacotes. Sem tabela."
+            title={'Cada projeto começa com uma <span>conversa real</span>'}
+            text="Não acreditamos em soluções prontas. Cada negócio tem um contexto único — e é isso que a gente quer entender antes de propor qualquer coisa."
           />
-          <div className="pricing-grid">
-            {plans.map((plan) => {
-              const Icon = plan.icon;
-              return (
-                <article className={plan.featured ? "is-featured" : ""} key={plan.name}>
-                  {plan.featured ? <span className="choice-label">Mais escolhido</span> : null}
-                  <Icon size={34} />
-                  <h3>{plan.name}</h3>
-                  <p>{plan.description}</p>
-                  <strong>{plan.price}</strong>
-                  {plan.price !== "Sob consulta" ? <small>à vista</small> : null}
-                  <ul>
-                    {plan.features.map((feature) => (
-                      <li key={feature}><CheckCircle2 size={16} /> {feature}</li>
-                    ))}
-                  </ul>
-                  <ButtonLink to="/contato" onNavigate={onNavigate} variant={plan.featured ? "primary" : "outline"}>
-                    {plan.cta}
-                  </ButtonLink>
-                </article>
-              );
-            })}
+          <div className="journey-grid">
+            <Reveal as="article" delay={0}>
+              <span className="journey-num">01</span>
+              <MessageCircle size={26} />
+              <h3>Você conta</h3>
+              <p>Compartilhe seus objetivos, desafios e o que espera alcançar. Sem formulário longo — só uma conversa direta com quem vai executar.</p>
+            </Reveal>
+            <Reveal as="article" delay={100}>
+              <span className="journey-num">02</span>
+              <Search size={26} />
+              <h3>A gente mapeia</h3>
+              <p>Analisamos seu cenário, identificamos as melhores soluções e estruturamos um plano claro com escopo, prazo e entregas definidas.</p>
+            </Reveal>
+            <Reveal as="article" delay={200}>
+              <span className="journey-num">03</span>
+              <FileCheck size={26} />
+              <h3>Você decide</h3>
+              <p>Recebe uma proposta personalizada, sem surpresas. Só avançamos quando você estiver seguro e alinhado com cada detalhe.</p>
+            </Reveal>
+          </div>
+          <div className="journey-cta">
+            <ButtonLink to="/contato" onNavigate={onNavigate}>Solicitar diagnóstico gratuito</ButtonLink>
           </div>
         </div>
       </section>
@@ -100,15 +105,15 @@ export default function Services({ onNavigate }) {
             title={'Da primeira conversa ao lançamento com <span>processo claro</span>'}
           />
           <div className="process-strip dark">
-            {processSteps.map((step, index) => {
+            {processSteps.map((step, i) => {
               const Icon = step.icon;
               return (
-                <article key={step.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                <Reveal as="article" key={step.title} delay={i * 80}>
+                  <span>{String(i + 1).padStart(2, "0")}</span>
                   <Icon size={25} />
                   <h3>{step.title}</h3>
                   <p>{step.text}</p>
-                </article>
+                </Reveal>
               );
             })}
           </div>
@@ -122,11 +127,11 @@ export default function Services({ onNavigate }) {
             text="Respostas diretas para facilitar sua decisão."
           />
           <div>
-            {faqs.map((faq) => (
-              <details key={faq.question}>
+            {faqs.map((faq, i) => (
+              <Reveal as="details" key={faq.question} delay={i * 60}>
                 <summary>{faq.question}</summary>
                 <p>{faq.answer}</p>
-              </details>
+              </Reveal>
             ))}
           </div>
         </div>

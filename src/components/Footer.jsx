@@ -1,4 +1,5 @@
-import { Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
+import { InstagramIcon, WhatsAppIcon } from "./BrandIcons.jsx";
 import { assets, navItems, services } from "../data/content.js";
 
 export default function Footer({ onNavigate }) {
@@ -9,10 +10,9 @@ export default function Footer({ onNavigate }) {
           <img src={assets.logoStacked} alt="GVM Digital" />
           <p>Sites, soluções digitais e prospecção de clientes para negócios que querem vender mais.</p>
           <div className="social-row" aria-label="Redes e contato">
-            <span><Instagram size={18} /></span>
-            <span><Linkedin size={18} /></span>
-            <span><Mail size={18} /></span>
-            <span><MessageCircle size={18} /></span>
+            <a href="https://www.instagram.com/gvmdigital_/" target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon size={18} /></a>
+            <a href="mailto:contato.gvmdigital@gmail.com" aria-label="E-mail"><Mail size={18} /></a>
+            <a href="https://wa.me/559284214298" target="_blank" rel="noreferrer" aria-label="WhatsApp"><WhatsAppIcon size={18} /></a>
           </div>
         </div>
 
@@ -50,8 +50,8 @@ export default function Footer({ onNavigate }) {
 
         <div className="footer-contact">
           <h3>Contato</h3>
-          <p>contato@gvmdigital.com.br</p>
-          <p>WhatsApp oficial</p>
+          <a href="mailto:contato.gvmdigital@gmail.com">contato.gvmdigital@gmail.com</a>
+          <a href="https://wa.me/559284214298" target="_blank" rel="noreferrer">+55 (92) 8421-4298</a>
           <p>Atendimento online para todo o Brasil</p>
           <button type="button" onClick={() => onNavigate("/contato")}>
             Solicitar proposta

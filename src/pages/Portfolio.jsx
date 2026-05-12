@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import CTASection from "../components/CTASection.jsx";
 import PageIntro from "../components/PageIntro.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionHeader from "../components/SectionHeader.jsx";
 import { assets, projects, proofPoints } from "../data/content.js";
 
@@ -18,6 +19,7 @@ export default function Portfolio({ onNavigate }) {
     <>
       <PageIntro
         onNavigate={onNavigate}
+        label="Portfólio"
         title={'Projetos internos, estudos e trabalhos <span>digitais</span>'}
         text="Uma seleção de projetos desenvolvidos para testar ideias, validar soluções e demonstrar capacidade técnica na prática."
         image={assets.projects.gvm}
@@ -45,8 +47,8 @@ export default function Portfolio({ onNavigate }) {
             </div>
           </div>
           <div className="project-grid">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.title} project={project} onNavigate={onNavigate} />
+            {filteredProjects.map((project, i) => (
+              <ProjectCard key={project.title} project={project} onNavigate={onNavigate} delay={i * 80} />
             ))}
           </div>
         </div>
@@ -60,14 +62,14 @@ export default function Portfolio({ onNavigate }) {
             text="Mais do que imagens bonitas, os projetos mostram capacidade de planejar, criar e entregar soluções digitais."
           />
           <div className="proof-grid">
-            {proofPoints.concat(proofPoints.slice(0, 1)).map((item, index) => {
+            {proofPoints.map((item, i) => {
               const Icon = item.icon;
               return (
-                <article key={`${item.title}-${index}`}>
+                <Reveal as="article" key={item.title} delay={i * 80}>
                   <Icon size={26} />
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
-                </article>
+                </Reveal>
               );
             })}
           </div>

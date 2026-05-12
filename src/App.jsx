@@ -6,6 +6,7 @@ import About from "./pages/About.jsx";
 import Services from "./pages/Services.jsx";
 import Portfolio from "./pages/Portfolio.jsx";
 import Contact from "./pages/Contact.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 const routes = {
   "/": Home,
@@ -16,8 +17,7 @@ const routes = {
 };
 
 function normalizePath(pathname) {
-  const cleanPath = pathname.replace(/\/+$/, "") || "/";
-  return routes[cleanPath] ? cleanPath : "/";
+  return pathname.replace(/\/+$/, "") || "/";
 }
 
 export default function App() {
@@ -51,7 +51,7 @@ export default function App() {
     setPath(target);
   };
 
-  const Page = useMemo(() => routes[path] || Home, [path]);
+  const Page = useMemo(() => routes[path] ?? NotFound, [path]);
 
   return (
     <div className="app-shell">

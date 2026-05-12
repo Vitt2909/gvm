@@ -1,7 +1,9 @@
 import { CheckCircle2 } from "lucide-react";
 import CTASection from "../components/CTASection.jsx";
 import PageIntro from "../components/PageIntro.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionHeader from "../components/SectionHeader.jsx";
+import { LinkedInIcon } from "../components/BrandIcons.jsx";
 import { assets, founders, processSteps } from "../data/content.js";
 
 export default function About({ onNavigate }) {
@@ -16,6 +18,7 @@ export default function About({ onNavigate }) {
     <>
       <PageIntro
         onNavigate={onNavigate}
+        label="Sobre nós"
         title={'Sobre a <span>GVM Digital</span>'}
         text="Somos um estúdio digital liderado por fundadores, especializado em criar presença online, gerar autoridade e impulsionar o crescimento de negócios."
         image={assets.office}
@@ -29,10 +32,10 @@ export default function About({ onNavigate }) {
               text="Atuamos lado a lado com nossos clientes, unindo estratégia, design, tecnologia e dados para construir projetos claros, eficientes e prontos para crescer."
             />
           </div>
-          <div className="copy-panel">
+          <Reveal className="copy-panel" delay={120}>
             <p>Aqui você não fala com intermediários: você fala com quem pensa, decide e executa.</p>
             <p>Isso torna o processo mais próximo, rápido e responsável, com cada entrega conectada ao objetivo real do negócio.</p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -45,7 +48,7 @@ export default function About({ onNavigate }) {
           />
           <div className="timeline">
             {["A ideia nasce", "Primeiros projetos próprios", "Estruturação da GVM Digital", "Expansão e próximos clientes"].map((item, index) => (
-              <article key={item}>
+              <Reveal as="article" key={item} delay={index * 80}>
                 <span>{index + 1}</span>
                 <h3>{item}</h3>
                 <p>
@@ -54,7 +57,7 @@ export default function About({ onNavigate }) {
                   {index === 2 && "Formalizamos processos, metodologia e um padrão visual consistente para escalar a operação."}
                   {index === 3 && "Iniciamos parcerias de longo prazo com clientes que querem crescer com estratégia e presença digital."}
                 </p>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -66,8 +69,8 @@ export default function About({ onNavigate }) {
             ["Missão", "Ajudar empresários a conquistarem presença digital estratégica e resultados consistentes."],
             ["Visão", "Ser referência em soluções digitais para pequenas e médias empresas no Brasil."],
             ["Valores", "Transparência, comprometimento, excelência técnica e foco no cliente."]
-          ].map(([title, text]) => (
-            <article key={title}>
+          ].map(([title, text], i) => (
+            <Reveal as="article" key={title} delay={i * 80}>
               <h3>{title}</h3>
               <p>{text}</p>
               <ul>
@@ -75,7 +78,7 @@ export default function About({ onNavigate }) {
                   <li key={value}><CheckCircle2 size={17} /> {value}</li>
                 ))}
               </ul>
-            </article>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -88,15 +91,15 @@ export default function About({ onNavigate }) {
             title={'Nosso processo é direto, claro e <span>orientado a resultado</span>'}
           />
           <div className="process-strip dark">
-            {processSteps.map((step, index) => {
+            {processSteps.map((step, i) => {
               const Icon = step.icon;
               return (
-                <article key={step.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                <Reveal as="article" key={step.title} delay={i * 80}>
+                  <span>{String(i + 1).padStart(2, "0")}</span>
                   <Icon size={25} />
                   <h3>{step.title}</h3>
                   <p>{step.text}</p>
-                </article>
+                </Reveal>
               );
             })}
           </div>
@@ -110,15 +113,18 @@ export default function About({ onNavigate }) {
             text="Uma operação enxuta, próxima e com responsabilidade direta sobre cada projeto."
           />
           <div className="founders-grid">
-            {founders.map((founder) => (
-              <article key={founder.name}>
+            {founders.map((founder, i) => (
+              <Reveal as="article" key={founder.name} delay={i * 80}>
                 <img src={founder.image} alt={founder.name} />
                 <div>
                   <h3>{founder.name}</h3>
                   <strong>{founder.role}</strong>
                   <p>{founder.text}</p>
+                  <a href={founder.linkedin} target="_blank" rel="noreferrer" className="founder-linkedin" aria-label={`LinkedIn de ${founder.name}`}>
+                    <LinkedInIcon size={16} /> LinkedIn
+                  </a>
                 </div>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>

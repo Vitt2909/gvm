@@ -32,14 +32,14 @@ export default function Header({ currentPath, onNavigate }) {
               {item.label}
             </NavLink>
           ))}
-          <NavLink to="/contato" currentPath={currentPath} onNavigate={goTo} className="nav-cta mobile-only">
-            Solicitar proposta
-          </NavLink>
         </nav>
 
-        <NavLink to="/contato" currentPath={currentPath} onNavigate={goTo} className="nav-cta desktop-only">
-          Solicitar proposta
-        </NavLink>
+        <div className="nav-cta-wrap desktop-only">
+          <NavLink to="/contato" currentPath={currentPath} onNavigate={goTo} className="nav-cta">
+            Solicitar proposta
+          </NavLink>
+          <span className="nav-cta-sub">Resposta em 24h</span>
+        </div>
 
         <button
           type="button"

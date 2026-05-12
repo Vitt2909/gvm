@@ -8,13 +8,16 @@ const heroProof = [
   { label: "Resultados", text: "Métricas e relatórios que importam", icon: Globe2 }
 ];
 
-export default function Hero({ onNavigate, compact = false, title, text, visual = true, children }) {
+export default function Hero({ onNavigate, compact = false, label, title, text, visual = true, children }) {
   return (
     <section className={`hero-section ${compact ? "is-compact" : ""}`}>
       <div className="hero-grid container">
         <div className="hero-copy">
-          <h1 dangerouslySetInnerHTML={{ __html: title }} />
-          <p>{text}</p>
+          <div className="hero-copy-text">
+            {label ? <span className="hero-label">{label}</span> : null}
+            <h1 dangerouslySetInnerHTML={{ __html: title }} />
+            <p>{text}</p>
+          </div>
           {children ? (
             children
           ) : (
