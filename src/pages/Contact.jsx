@@ -129,7 +129,20 @@ export default function Contact({ onNavigate }) {
             <div className="contact-methods">
               {contactMethods.map((method) => {
                 const Icon = method.icon;
-                return (
+                const isExternal = method.href?.startsWith("http");
+                return method.href ? (
+                  <a
+                    key={method.title}
+                    href={method.href}
+                    {...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+                  >
+                    <Icon size={21} />
+                    <div>
+                      <h3>{method.title}</h3>
+                      <p>{method.text}</p>
+                    </div>
+                  </a>
+                ) : (
                   <article key={method.title}>
                     <Icon size={21} />
                     <div>

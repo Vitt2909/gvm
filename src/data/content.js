@@ -178,9 +178,9 @@ export const founders = [
 ];
 
 export const contactMethods = [
-  { title: "WhatsApp oficial",    text: "Fale com a equipe e explique seu projeto em poucos minutos.", icon: MessageCircle },
-  { title: "E-mail",              text: "contato.gvmdigital@gmail.com",                                icon: Mail         },
-  { title: "Atendimento online",  text: "Reuniões remotas para empresas de todo o Brasil.",            icon: MapPin       }
+  { title: "WhatsApp oficial",    text: "Fale com a equipe e explique seu projeto em poucos minutos.", icon: MessageCircle, href: "https://wa.me/559284214298" },
+  { title: "E-mail",              text: "contato.gvmdigital@gmail.com",                                icon: Mail,          href: "mailto:contato.gvmdigital@gmail.com" },
+  { title: "Atendimento online",  text: "Reuniões remotas para empresas de todo o Brasil.",            icon: MapPin }
 ];
 
 export const faqs = [
