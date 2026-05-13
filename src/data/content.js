@@ -31,12 +31,16 @@ export const assets = {
     mayllon: new URL("../../assets/page/founder-mayllon.png", import.meta.url).href
   },
   projects: {
-    sj: new URL("../../assets/page/portfolio-card-sj-sports.png", import.meta.url).href,
-    itesam: new URL("../../assets/page/portfolio-card-itesam.png", import.meta.url).href,
     facelog: new URL("../../assets/page/portfolio-card-facelog.png", import.meta.url).href,
     access: new URL("../../assets/page/portfolio-card-access.png", import.meta.url).href,
     gvm: new URL("../../assets/page/portfolio-card-gvm.png", import.meta.url).href,
-    automation: new URL("../../assets/page/portfolio-card-automation.png", import.meta.url).href
+    automation: new URL("../../assets/page/portfolio-card-automation.png", import.meta.url).href,
+    donation: new URL("../../assets/page/portfolio-card-donation.png", import.meta.url).href,
+    bipa: new URL("../../assets/page/portfolio-card-bipa.png", import.meta.url).href,
+    questcareer: new URL("../../assets/page/portfolio-card-questcareer.png", import.meta.url).href,
+    nexusStudy: new URL("../../assets/page/portfolio-card-nexus-study.png", import.meta.url).href,
+    leitorCartao: new URL("../../assets/page/portfolio-card-leitor-cartao.png", import.meta.url).href,
+    scannerEscolar: new URL("../../assets/page/portfolio-card-scanner-escolar.png", import.meta.url).href
   }
 };
 
@@ -104,22 +108,6 @@ export const processSteps = [
 
 export const projects = [
   {
-    title: "SJ Sports",
-    type: "E-commerce",
-    category: "Projetos reais",
-    tags: ["Site", "Vendas", "Performance"],
-    image: assets.projects.sj,
-    description: "E-commerce para loja de artigos esportivos com jornada de compra, frete e painel administrativo."
-  },
-  {
-    title: "ITESAM",
-    type: "Site institucional",
-    category: "Projetos reais",
-    tags: ["Institucional", "Educação", "Portal"],
-    image: assets.projects.itesam,
-    description: "Site institucional para faculdade com cursos, vestibular online, blog e portal do aluno."
-  },
-  {
     title: "FaceLog",
     type: "Plataforma",
     category: "Plataformas",
@@ -150,6 +138,54 @@ export const projects = [
     tags: ["Fluxos", "Integração", "Produtividade"],
     image: assets.projects.automation,
     description: "Automações e integrações entre ferramentas para otimizar tarefas e reduzir retrabalho."
+  },
+  {
+    title: "Registro de Doações",
+    type: "Plataforma Social",
+    category: "Sistemas",
+    tags: ["Dashboard", "Gestão", "Transparência"],
+    image: assets.projects.donation,
+    description: "Sistema para registrar, organizar e acompanhar doações em campanhas sociais, com relatórios e ranking de participantes."
+  },
+  {
+    title: "BIPA",
+    type: "Mini ERP / PDV",
+    category: "Sistemas",
+    tags: ["PDV", "Estoque", "Vendas"],
+    image: assets.projects.bipa,
+    description: "ERP e PDV digital para pequenos brechós e vendedores gerenciarem produtos, estoque, catálogo e fechamento de pedidos."
+  },
+  {
+    title: "QuestCareer",
+    type: "Plataforma Educacional",
+    category: "Plataformas",
+    tags: ["Gamificação", "Carreira", "IA"],
+    image: assets.projects.questcareer,
+    description: "Plataforma gamificada que usa jornadas e IA para ajudar estudantes a descobrirem caminhos profissionais."
+  },
+  {
+    title: "Nexus Study OS",
+    type: "Sistema de Estudos",
+    category: "Sistemas",
+    tags: ["Educação", "Organização", "IA"],
+    image: assets.projects.nexusStudy,
+    description: "Ecossistema de estudos para organizar conteúdos, certificados, cronogramas e cursos em um só lugar."
+  },
+  {
+    title: "Leitor de Cartão-Resposta",
+    type: "Ferramenta Escolar",
+    category: "Sistemas",
+    tags: ["Automação", "Escola", "OCR"],
+    image: assets.projects.leitorCartao,
+    description: "Sistema que automatiza a correção de cartões-resposta via reconhecimento de imagem e organiza resultados por aluno e turma."
+  },
+  {
+    title: "Scanner Escolar",
+    type: "Reconhecimento Facial",
+    category: "Sistemas",
+    tags: ["Biometria", "Presença", "Segurança"],
+    image: assets.projects.scannerEscolar,
+    description: "Solução local de reconhecimento facial para registrar entrada, saída e presença de alunos sem processos manuais."
   }
 ];
 

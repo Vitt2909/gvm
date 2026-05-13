@@ -718,8 +718,16 @@ img {
   gap: 26px;
 }
 
+.project-grid > *:last-child:nth-child(3n + 1) {
+  grid-column: 2;
+}
+
 .project-grid.compact {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.project-grid.compact > *:last-child:nth-child(3n + 1) {
+  grid-column: unset;
 }
 
 .project-card {

@@ -6,7 +6,7 @@ import Reveal from "../components/Reveal.jsx";
 import SectionHeader from "../components/SectionHeader.jsx";
 import { assets, projects, proofPoints } from "../data/content.js";
 
-const filters = ["Todos", "Projetos reais", "Protótipos", "Plataformas", "Automação"];
+const filters = ["Todos", "Sistemas", "Plataformas", "Protótipos", "Automação"];
 
 export default function Portfolio({ onNavigate }) {
   const [activeFilter, setActiveFilter] = useState("Todos");
