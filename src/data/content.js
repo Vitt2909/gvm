@@ -23,7 +23,7 @@ export const assets = {
   logoHorizontal: new URL("../../assets/logos/gvm-logo-horizontal-color.png", import.meta.url).href,
   logoStacked: new URL("../../assets/logos/gvm-logo-stacked-color.png", import.meta.url).href,
   symbol: new URL("../../assets/logos/gvm-symbol-geometric-color.png", import.meta.url).href,
-  heroDevices: new URL("../../assets/generated/hero-devices.png", import.meta.url).href,
+  heroDevices: new URL("../../assets/page/hero-devices.png", import.meta.url).href,
   office: new URL("../../assets/page/office-team.png", import.meta.url).href,
   founders: {
     gustavo: new URL("../../assets/page/founder-gustavo.png", import.meta.url).href,

@@ -49,8 +49,7 @@ Projeto desenvolvido e mantido pelos fundadores da **GVM Digital**:
 gvm-1/
 ├── assets/
 │   ├── logos/               # Logos da GVM (horizontal, stacked, símbolo)
-│   ├── generated/           # Imagens geradas (hero-devices)
-│   └── page/                # Fotos de fundadores, portfólio e equipe
+│   └── page/                # Imagens de página, portfólio e equipe
 │
 ├── public/
 │   ├── favicon.png          # Ícone do site (símbolo GVM)
