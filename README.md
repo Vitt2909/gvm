@@ -8,10 +8,10 @@
 
 [![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-7-646cff?style=flat-square&logo=vite)](https://vitejs.dev)
-[![Deploy](https://img.shields.io/badge/Deploy-Netlify-00c7b7?style=flat-square&logo=netlify)](https://netlify.com)
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat-square&logo=vercel)](https://gvmdigital.vercel.app)
 [![License](https://img.shields.io/badge/Licença-Privado-red?style=flat-square)]()
 
-[🌐 Site ao vivo](#) • [📸 Instagram](https://www.instagram.com/gvmdigital_/) • [💬 WhatsApp](https://wa.me/559284214298)
+[🌐 Site ao vivo](https://gvmdigital.vercel.app) • [📸 Instagram](https://www.instagram.com/gvmdigital_/) • [💬 WhatsApp](https://wa.me/559284214298)
 
 </div>
 
@@ -39,7 +39,7 @@ Projeto desenvolvido e mantido pelos fundadores da **GVM Digital**:
 | Ícones | Lucide React + SVGs oficiais (BrandIcons) |
 | Estilo | CSS puro com variáveis customizadas |
 | Roteamento | SPA client-side (history API) |
-| Deploy | Netlify (`public/_redirects`) |
+| Deploy | Vercel (`vercel.json`) |
 
 ---
 
@@ -55,8 +55,7 @@ gvm-1/
 │   ├── favicon.png          # Ícone do site (símbolo GVM)
 │   ├── robots.txt           # Configuração para crawlers
 │   ├── sitemap.xml          # Mapa do site para SEO
-│   ├── 404.html             # Redirect SPA para GitHub Pages / Netlify
-│   └── _redirects           # Regra Netlify: /* /index.html 200
+│   └── 404.html             # Fallback SPA (GitHub Pages / compatibilidade)
 │
 ├── src/
 │   ├── components/
@@ -246,7 +245,7 @@ Em `src/styles.css`, bloco `:root` no início do arquivo:
 ### 🔵 Melhorias futuras
 
 - [ ] **Blog / Conteúdo** — seção de artigos para SEO orgânico
-- [x] **Domínio e HTTPS confirmados** — `sitemap.xml` e `robots.txt` usam a URL canônica de produção `https://gvmdigital.vercel.app/`
+- [x] **Domínio e HTTPS confirmados** — URL canônica `https://gvmdigital.vercel.app/` em produção na Vercel, usada no `sitemap.xml` e `robots.txt`
 - [ ] **PWA / Manifest** — adicionar `manifest.json` para instalação como app no celular
 - [ ] **Lazy loading dos assets de portfólio** — as imagens já têm `loading="lazy"`, mas pode ser otimizado com `srcset` responsivo
 
@@ -254,12 +253,16 @@ Em `src/styles.css`, bloco `:root` no início do arquivo:
 
 ## 🌐 Deploy
 
-O site é um SPA (Single Page Application) hospedado na **Vercel**.
+O site é um SPA (Single Page Application) hospedado na **[Vercel](https://gvmdigital.vercel.app)**.
 
-O arquivo `public/_redirects` garante que todas as rotas (ex: `/servicos`, `/portfolio`) funcionem corretamente ao ser acessadas diretamente ou ao recarregar a página:
+O arquivo `vercel.json` na raiz do projeto configura os rewrites de rota, garantindo que caminhos como `/servicos` ou `/portfolio` funcionem corretamente ao serem acessados diretamente ou ao recarregar a página:
 
-```
-/* /index.html 200
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
 ```
 
 Para fazer deploy após alterações:
@@ -269,7 +272,7 @@ Para fazer deploy após alterações:
 git add .
 git commit -m "descrição das mudanças"
 git push origin main
-# O Netlify detecta o push e faz o deploy automaticamente
+# A Vercel detecta o push e faz o deploy automaticamente
 ```
 
 ---
