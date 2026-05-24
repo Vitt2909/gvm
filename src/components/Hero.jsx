@@ -38,7 +38,15 @@ export default function Hero({ onNavigate, compact = false, label, title, text, 
         {visual ? (
           <div className="hero-visual-wrap">
             <div className="hero-geometry geometry-one" />
-            <img className="hero-devices" src={assets.heroDevices} alt="Mockup de site e painel GVM Digital" />
+            <img
+              className="hero-devices"
+              src={assets.heroDevices}
+              alt="Mockup de site e painel digital criados pela GVM Digital"
+              width="1587"
+              height="911"
+              fetchPriority="high"
+              decoding="async"
+            />
             <div className="floating-card lead-card">
               <span>Leads prontos</span>
               <strong>+127%</strong>

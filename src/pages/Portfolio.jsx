@@ -23,6 +23,9 @@ export default function Portfolio({ onNavigate }) {
         title={'Projetos internos, estudos e trabalhos <span>digitais</span>'}
         text="Uma seleção de projetos desenvolvidos para testar ideias, validar soluções e demonstrar capacidade técnica na prática."
         image={assets.projects.gvm}
+        imageAlt="Preview do projeto institucional da GVM Digital"
+        imageWidth="1280"
+        imageHeight="720"
         ctaLabel="Quero um projeto"
       />
 

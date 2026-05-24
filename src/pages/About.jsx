@@ -22,6 +22,9 @@ export default function About({ onNavigate }) {
         title={'Sobre a <span>GVM Digital</span>'}
         text="Somos um estúdio digital liderado por fundadores, especializado em criar presença online, gerar autoridade e impulsionar o crescimento de negócios."
         image={assets.office}
+        imageAlt="Equipe da GVM Digital em reunião de estratégia"
+        imageWidth="1200"
+        imageHeight="800"
       />
 
       <section className="section">
@@ -115,7 +118,14 @@ export default function About({ onNavigate }) {
           <div className="founders-grid">
             {founders.map((founder, i) => (
               <Reveal as="article" key={founder.name} delay={i * 80}>
-                <img src={founder.image} alt={founder.name} />
+                <img
+                  src={founder.image}
+                  alt={`Foto de ${founder.name}, ${founder.role} na GVM Digital`}
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div>
                   <h3>{founder.name}</h3>
                   <strong>{founder.role}</strong>

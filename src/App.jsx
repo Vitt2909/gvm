@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import SEO from "./components/SEO.jsx";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Services from "./pages/Services.jsx";
@@ -55,6 +56,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <SEO path={path} />
       <Header currentPath={path} onNavigate={navigate} />
       <main>
         <Page onNavigate={navigate} />

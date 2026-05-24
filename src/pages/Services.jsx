@@ -16,6 +16,9 @@ export default function Services({ onNavigate }) {
         title={'Soluções digitais para posicionar melhor o <span>seu negócio</span>'}
         text="Ajudamos empresas a ganhar visibilidade, gerar autoridade e converter mais com estratégia, design e tecnologia."
         image={assets.heroDevices}
+        imageAlt="Mockups de sites e dashboards desenvolvidos pela GVM Digital"
+        imageWidth="1587"
+        imageHeight="911"
         secondaryCta={{ label: "Falar no WhatsApp", href: "https://wa.me/559284214298?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20GVM%20Digital%20sobre%20um%20projeto.", external: true }}
       />
 

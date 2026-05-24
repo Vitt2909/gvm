@@ -49,7 +49,15 @@ export default function Home({ onNavigate }) {
               </ul>
             </Reveal>
           </div>
-          <img className="brand-symbol" src={assets.symbol} alt="" aria-hidden="true" />
+          <img
+            className="brand-symbol"
+            src={assets.symbol}
+            alt="Símbolo geométrico da GVM Digital"
+            width="876"
+            height="1015"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="proof-mini-grid">
             {proofPoints.map((item, i) => {
               const Icon = item.icon;

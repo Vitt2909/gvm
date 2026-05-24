@@ -1,7 +1,21 @@
 import { ArrowRight } from "lucide-react";
 import ButtonLink from "./ButtonLink.jsx";
 
-export default function PageIntro({ title, text, label, onNavigate, image, children, ctaLabel = "Solicitar proposta", secondaryCta, hideCta = false }) {
+export default function PageIntro({
+  title,
+  text,
+  label,
+  onNavigate,
+  image,
+  imageAlt = "",
+  imageWidth,
+  imageHeight,
+  imagePriority = true,
+  children,
+  ctaLabel = "Solicitar proposta",
+  secondaryCta,
+  hideCta = false
+}) {
   return (
     <section className="page-intro">
       <div className="container page-intro-grid">
@@ -21,7 +35,17 @@ export default function PageIntro({ title, text, label, onNavigate, image, child
           ) : null}
         </div>
         <div className="page-intro-panel">
-          {image ? <img src={image} alt="" /> : null}
+          {image ? (
+            <img
+              src={image}
+              alt={imageAlt}
+              width={imageWidth}
+              height={imageHeight}
+              loading={imagePriority ? "eager" : "lazy"}
+              fetchPriority={imagePriority ? "high" : "auto"}
+              decoding="async"
+            />
+          ) : null}
           {children}
         </div>
       </div>

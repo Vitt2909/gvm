@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gvmdigital.com.br/sitemap.xml
+Sitemap: https://gvmdigital.vercel.app/sitemap.xml

@@ -23,7 +23,13 @@ export default function Header({ currentPath, onNavigate }) {
             goTo("/");
           }}
         >
-          <img src={assets.logoHorizontal} alt="GVM Digital" />
+          <img
+            src={assets.logoHorizontal}
+            alt="Logotipo da GVM Digital"
+            width="1542"
+            height="238"
+            decoding="async"
+          />
         </a>
 
         <nav className={`main-nav ${menuOpen ? "is-open" : ""}`} aria-label="Navegação principal">

@@ -12,7 +12,10 @@ export default function ProjectCard({ project, onNavigate, delay = 0 }) {
         <img
           src={project.image}
           alt={`Preview do projeto ${project.title}`}
+          width="1280"
+          height="720"
           loading="lazy"
+          decoding="async"
           onLoad={() => setImgLoaded(true)}
         />
       </div>

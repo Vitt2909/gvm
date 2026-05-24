@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/sobre",
+      "destination": "/sobre/index.html"
+    },
+    {
+      "source": "/servicos",
+      "destination": "/servicos/index.html"
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/portfolio/index.html"
+    },
+    {
+      "source": "/contato",
+      "destination": "/contato/index.html"
+    },
+    {
       "source": "/((?!assets/|favicon\\.ico).*)",
       "destination": "/index.html"
     }

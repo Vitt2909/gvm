@@ -7,7 +7,14 @@ export default function Footer({ onNavigate }) {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img src={assets.logoStacked} alt="GVM Digital" />
+          <img
+            src={assets.logoStacked}
+            alt="Logotipo vertical da GVM Digital"
+            width="1193"
+            height="898"
+            loading="lazy"
+            decoding="async"
+          />
           <p>Sites, soluções digitais e prospecção de clientes para negócios que querem vender mais.</p>
           <div className="social-row" aria-label="Redes e contato">
             <a href="https://www.instagram.com/gvmdigital_/" target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon size={18} /></a>

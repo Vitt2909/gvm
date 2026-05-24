@@ -240,13 +240,13 @@ Em `src/styles.css`, bloco `:root` no início do arquivo:
 
 - [ ] **Depoimentos de clientes** — seção de `testimonials` na Home ou na página Sobre (reforça credibilidade)
 - [ ] **Preload das imagens hero** — adicionar `<link rel="preload" as="image">` no `index.html` para `hero-devices.png` e `office-team.png` (melhora LCP / Core Web Vitals)
-- [ ] **OG image personalizada** — atualmente o preview de compartilhamento usa o favicon. Criar uma imagem 1200×630px específica para compartilhamento no WhatsApp/Instagram/LinkedIn
+- [x] **OG image personalizada** — imagem 1200×630px criada em `public/og-image.png` para compartilhamento no WhatsApp/Instagram/LinkedIn
 - [ ] **Google Analytics / Meta Pixel** — sem rastreamento de visitas ou conversões
 
 ### 🔵 Melhorias futuras
 
 - [ ] **Blog / Conteúdo** — seção de artigos para SEO orgânico
-- [ ] **Domínio e HTTPS confirmados** — atualizar `sitemap.xml` e `robots.txt` com a URL real de produção (atualmente `gvmdigital.com.br`)
+- [x] **Domínio e HTTPS confirmados** — `sitemap.xml` e `robots.txt` usam a URL canônica de produção `https://gvmdigital.vercel.app/`
 - [ ] **PWA / Manifest** — adicionar `manifest.json` para instalação como app no celular
 - [ ] **Lazy loading dos assets de portfólio** — as imagens já têm `loading="lazy"`, mas pode ser otimizado com `srcset` responsivo
 
@@ -254,7 +254,7 @@ Em `src/styles.css`, bloco `:root` no início do arquivo:
 
 ## 🌐 Deploy
 
-O site é um SPA (Single Page Application) hospedado no **Netlify**.
+O site é um SPA (Single Page Application) hospedado na **Vercel**.
 
 O arquivo `public/_redirects` garante que todas as rotas (ex: `/servicos`, `/portfolio`) funcionem corretamente ao ser acessadas diretamente ou ao recarregar a página:
 

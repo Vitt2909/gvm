@@ -62,6 +62,9 @@ export default function Contact({ onNavigate }) {
         title={'Solicite uma proposta para o <span>seu projeto</span>'}
         text="Conte sobre seu negócio e suas necessidades. Vamos analisar o cenário e indicar o melhor caminho para gerar resultados."
         image={assets.heroDevices}
+        imageAlt="Mockups de site e painel digital para projetos da GVM Digital"
+        imageWidth="1587"
+        imageHeight="911"
         hideCta
       />
 
