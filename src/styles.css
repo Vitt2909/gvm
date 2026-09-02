@@ -1828,6 +1828,417 @@ label small {
   }
 }
 
+/* ─── Campanha temporária: Conversão GVM (clínicas) ───────────
+   Estilos usados apenas por CampaignBanner.jsx e Campaign.jsx.
+   Podem ser removidos junto com a campanha (ver src/data/campaign.js). */
+.campaign-banner {
+  padding: 28px 0 0;
+}
+
+.campaign-banner-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  padding: 26px 30px;
+  background:
+    linear-gradient(135deg, rgba(0, 91, 255, 0.08), transparent 60%),
+    var(--soft-blue);
+  border: 1px solid #cfe0ff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(0, 91, 255, 0.08);
+}
+
+.campaign-banner-card h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.2;
+}
+
+.campaign-banner-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.campaign-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 5px 12px;
+  color: var(--blue-600);
+  background: var(--white);
+  border: 1px solid #cfe0ff;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.campaign-banner-actions {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.campaign-section {
+  scroll-margin-top: 90px;
+}
+
+.campaign-intro .page-intro-panel {
+  padding: 28px;
+}
+
+.campaign-offer-card,
+.campaign-price-card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(6, 18, 58, 0.06);
+  color: var(--ink);
+}
+
+.campaign-offer-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.campaign-price-card {
+  border-color: var(--blue-600);
+  box-shadow: var(--shadow-blue);
+}
+
+.campaign-offer-label {
+  color: var(--blue-600);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.campaign-price {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Plus Jakarta Sans', Inter, sans-serif;
+  font-size: 2.7rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.campaign-price small {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.campaign-offer-card p,
+.campaign-price-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.campaign-offer-card ul,
+.campaign-price-card ul,
+.campaign-scope-grid ul {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.campaign-offer-card li,
+.campaign-price-card li,
+.campaign-scope-grid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.campaign-offer-card li svg,
+.campaign-price-card li svg,
+.campaign-scope-grid li svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--blue-600);
+}
+
+.campaign-price-card .button {
+  margin-top: 24px;
+}
+
+.campaign-footnote {
+  display: block;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.campaign-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.campaign-audience-grid article {
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(6, 18, 58, 0.06);
+}
+
+.campaign-audience-grid h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.08rem;
+}
+
+.campaign-audience-grid p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.campaign-solution {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: 24px 40px;
+  align-items: start;
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.campaign-solution h3 {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.campaign-solution .check-list {
+  margin: 0;
+}
+
+.campaign-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.campaign-scope-grid article {
+  padding: 32px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(6, 18, 58, 0.06);
+}
+
+.campaign-scope-grid h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--ink);
+}
+
+.campaign-scope-grid h3 svg {
+  color: var(--blue-600);
+}
+
+.campaign-scope-grid .is-excluded h3 svg,
+.campaign-scope-grid .is-excluded li svg {
+  color: var(--muted);
+}
+
+.campaign-scope-grid .is-excluded li {
+  text-decoration: none;
+}
+
+.campaign-note {
+  margin: 22px 0 0;
+  padding: 14px 16px;
+  color: var(--muted);
+  background: var(--soft);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.campaign-pricing {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 26px;
+  align-items: start;
+}
+
+.campaign-price-card .choice-label {
+  white-space: nowrap;
+}
+
+.campaign-price-card p s {
+  text-decoration-thickness: 2px;
+}
+
+.campaign-terms {
+  display: grid;
+  margin: 0;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 14px 36px rgba(6, 18, 58, 0.06);
+}
+
+.campaign-terms > div {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--line);
+}
+
+.campaign-terms > div:first-child {
+  border-top: 0;
+}
+
+.campaign-terms dt {
+  color: var(--ink);
+  font-weight: 850;
+}
+
+.campaign-terms dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.campaign-steps {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.campaign-steps li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.campaign-steps li > span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--blue-600);
+  background: var(--soft-blue);
+  border: 1px solid #d7e7ff;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.campaign-steps strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+}
+
+.campaign-steps strong svg {
+  color: var(--blue-600);
+}
+
+.campaign-steps p {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.help-card .button-outline {
+  width: 100%;
+}
+
+@media (min-width: 821px) and (max-width: 1080px) {
+  .main-nav .campaign-nav-item {
+    display: none;
+  }
+}
+
+@media (max-width: 1080px) {
+  .campaign-audience-grid,
+  .campaign-scope-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .campaign-pricing,
+  .campaign-solution {
+    grid-template-columns: 1fr;
+  }
+
+  .campaign-terms > div {
+    grid-template-columns: 160px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 820px) {
+  .campaign-banner {
+    padding-top: 20px;
+  }
+
+  .campaign-banner-card,
+  .campaign-audience-grid,
+  .campaign-scope-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .campaign-banner-card {
+    padding: 22px;
+  }
+
+  .campaign-intro .page-intro-panel {
+    padding: 0;
+  }
+
+  .campaign-terms > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .campaign-price {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .campaign-offer-card,
+  .campaign-price-card,
+  .campaign-scope-grid article,
+  .campaign-audience-grid article {
+    padding: 22px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

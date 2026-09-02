@@ -227,6 +227,32 @@ Em `src/styles.css`, bloco `:root` no início do arquivo:
 
 ---
 
+## 🎯 Campanha temporária — Conversão GVM (clínicas de estética)
+
+Campanha direcionada a clínicas de estética avançada em Vieiralves/Adrianópolis (Manaus). Ela adiciona um CTA na Home, um item "Clínicas" no menu e a rota `/clinicas` com a landing page da oferta.
+
+**Para desligar a campanha (1 linha):** em `src/data/campaign.js`, mude
+
+```js
+export const CAMPAIGN_ENABLED = true;   // →  false
+```
+
+Isso remove o CTA da Home, o item do menu, a rota (passa a responder 404) e as meta tags da oferta. Todos os textos, valores e listas da oferta também ficam nesse arquivo.
+
+**Para remover de vez**, apague os arquivos e as linhas marcadas com o comentário `campanha temporária`:
+
+| Arquivo | O que remover |
+|---------|---------------|
+| `src/data/campaign.js` | arquivo inteiro |
+| `src/components/CampaignBanner.jsx` | arquivo inteiro |
+| `src/pages/Campaign.jsx` | arquivo inteiro |
+| `clinicas/index.html` | pasta inteira |
+| `src/styles.css` | bloco `Campanha temporária: Conversão GVM` |
+| `src/App.jsx`, `src/pages/Home.jsx`, `src/data/content.js`, `src/data/seo.js` | linhas com `// campanha temporária` |
+| `vite.config.js`, `vercel.json`, `public/sitemap.xml` | entrada `clinicas` |
+
+---
+
 ## 📋 O que ainda está pendente
 
 ### 🔴 Prioritário

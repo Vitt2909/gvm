@@ -14,7 +14,8 @@ export default defineConfig({
         sobre: resolve(__dirname, "sobre/index.html"),
         servicos: resolve(__dirname, "servicos/index.html"),
         portfolio: resolve(__dirname, "portfolio/index.html"),
-        contato: resolve(__dirname, "contato/index.html")
+        contato: resolve(__dirname, "contato/index.html"),
+        clinicas: resolve(__dirname, "clinicas/index.html") // campanha temporária
       }
     }
   },

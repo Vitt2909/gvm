@@ -1,5 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 import ButtonLink from "../components/ButtonLink.jsx";
+import CampaignBanner from "../components/CampaignBanner.jsx"; // campanha temporária
 import CTASection from "../components/CTASection.jsx";
 import Hero from "../components/Hero.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
@@ -17,6 +18,8 @@ export default function Home({ onNavigate }) {
         title={'Presença digital profissional para negócios que querem <span>vender mais.</span>'}
         text="Criamos sites, landing pages e soluções digitais que fortalecem sua presença online, geram autoridade e abrem caminho para mais oportunidades."
       />
+
+      <CampaignBanner onNavigate={onNavigate} /> {/* campanha temporária */}
 
       <section className="section">
         <div className="container">
