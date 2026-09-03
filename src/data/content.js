@@ -18,6 +18,7 @@ import {
   Target,
   UsersRound
 } from "lucide-react";
+import { CAMPAIGN_ENABLED, campaignNavItem } from "./campaign.js"; // campanha temporária
 
 export const assets = {
   logoHorizontal: new URL("../../assets/logos/gvm-logo-horizontal-color.png", import.meta.url).href,
@@ -49,7 +50,8 @@ export const navItems = [
   { label: "Sobre", path: "/sobre" },
   { label: "Serviços", path: "/servicos" },
   { label: "Portfólio", path: "/portfolio" },
-  { label: "Contato", path: "/contato" }
+  { label: "Contato", path: "/contato" },
+  ...(CAMPAIGN_ENABLED ? [campaignNavItem] : []) // campanha temporária
 ];
 
 export const services = [

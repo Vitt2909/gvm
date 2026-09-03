@@ -17,6 +17,10 @@
       "destination": "/contato/index.html"
     },
     {
+      "source": "/clinicas",
+      "destination": "/clinicas/index.html"
+    },
+    {
       "source": "/((?!assets/|favicon\\.ico).*)",
       "destination": "/index.html"
     }

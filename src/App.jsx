@@ -8,13 +8,16 @@ import Services from "./pages/Services.jsx";
 import Portfolio from "./pages/Portfolio.jsx";
 import Contact from "./pages/Contact.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Campaign from "./pages/Campaign.jsx"; // campanha temporária
+import { CAMPAIGN_ENABLED, CAMPAIGN_PATH } from "./data/campaign.js"; // campanha temporária
 
 const routes = {
   "/": Home,
   "/sobre": About,
   "/servicos": Services,
   "/portfolio": Portfolio,
-  "/contato": Contact
+  "/contato": Contact,
+  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: Campaign } : {}) // campanha temporária
 };
 
 function normalizePath(pathname) {

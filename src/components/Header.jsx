@@ -34,7 +34,7 @@ export default function Header({ currentPath, onNavigate }) {
 
         <nav className={`main-nav ${menuOpen ? "is-open" : ""}`} aria-label="Navegação principal">
           {navItems.map((item) => (
-            <NavLink key={item.path} to={item.path} currentPath={currentPath} onNavigate={goTo}>
+            <NavLink key={item.path} to={item.path} currentPath={currentPath} onNavigate={goTo} className={item.className ?? ""}>
               {item.label}
             </NavLink>
           ))}

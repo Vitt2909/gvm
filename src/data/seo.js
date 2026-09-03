@@ -1,3 +1,5 @@
+import { CAMPAIGN_ENABLED, CAMPAIGN_PATH, campaignSeo } from "./campaign.js"; // campanha temporária
+
 export const SITE_URL = "https://gvmdigital.vercel.app";
 export const SITE_NAME = "GVM Digital";
 export const OG_IMAGE_URL = `${SITE_URL}/og-image.png`;
@@ -34,7 +36,8 @@ export const seoPages = {
     description:
       "Fale com a GVM Digital em Manaus e solicite uma proposta para site, landing page, identidade visual, automação ou estratégia digital.",
     priority: "0.7"
-  }
+  },
+  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: campaignSeo } : {}) // campanha temporária
 };
 
 export const notFoundSeo = {
