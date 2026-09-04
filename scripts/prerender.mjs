@@ -12,6 +12,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, resolve, basename } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { buildLlmsTxt, buildLlmsFullTxt } from "./llms-txt.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, "..");
@@ -238,6 +239,23 @@ function writeSitemap({ routes, getSeoForPath }) {
   console.log(`  ✓ sitemap.xml — ${routes.length} URLs (lastmod ${lastmod})`);
 }
 
+/**
+ * Arquivos em texto puro para modelos de linguagem. Só rendem porque as páginas
+ * que eles indicam agora têm conteúdo legível no HTML: um llms.txt apontando
+ * para páginas vazias não ajudaria a LLM a recomendar nada.
+ */
+function writeLlmsFiles({ site, content }) {
+  const files = [
+    ["llms.txt", buildLlmsTxt({ site, content })],
+    ["llms-full.txt", buildLlmsFullTxt({ site, content })]
+  ];
+
+  for (const [name, body] of files) {
+    writeFileSync(resolve(distDir, name), body);
+    console.log(`  ✓ ${name} — ${(body.length / 1024).toFixed(1)} kB`);
+  }
+}
+
 async function main() {
   if (!existsSync(ssrEntry)) {
     throw new Error(
@@ -246,9 +264,8 @@ async function main() {
   }
 
   const assetMap = buildAssetMap();
-  const { render, routes, getSeoForPath, getStructuredData } = await import(
-    pathToFileURL(ssrEntry).href
-  );
+  const { render, routes, getSeoForPath, getStructuredData, site, content } =
+    await import(pathToFileURL(ssrEntry).href);
 
   let count = 0;
 
@@ -281,6 +298,7 @@ async function main() {
   }
 
   writeSitemap({ routes, getSeoForPath });
+  writeLlmsFiles({ site, content });
 
   console.log(`\nPré-renderização concluída: ${count} página(s).`);
 }

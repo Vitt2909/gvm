@@ -11,7 +11,10 @@
  */
 import { renderToString } from "react-dom/server";
 import App from "./App.jsx";
-import { getSeoForPath, getStructuredData, seoPages } from "./data/seo.js";
+import * as seo from "./data/seo.js";
+import * as content from "./data/content.js";
+
+const { getSeoForPath, getStructuredData, seoPages } = seo;
 
 // Fonte única das rotas: o mesmo objeto que gera títulos, canonical e sitemap.
 export const routes = Object.keys(seoPages);
@@ -24,3 +27,7 @@ export function render(path) {
 // estruturados no HTML a partir da mesma fonte que o site usa em tempo de
 // execução, sem uma segunda cópia para desatualizar.
 export { getSeoForPath, getStructuredData };
+
+// Conteúdo e constantes do site, para o scripts/llms-txt.mjs montar /llms.txt e
+// /llms-full.txt a partir da mesma fonte que alimenta as páginas.
+export { seo as site, content };
