@@ -53,9 +53,18 @@ gvm-1/
 │
 ├── public/
 │   ├── favicon.png          # Ícone do site (símbolo GVM)
-│   ├── robots.txt           # Configuração para crawlers
-│   ├── sitemap.xml          # Mapa do site para SEO
+│   ├── robots.txt           # Crawlers, incluindo os robôs de IA
 │   └── 404.html             # Fallback SPA (GitHub Pages / compatibilidade)
+│                            # sitemap.xml, llms.txt e llms-full.txt são
+│                            # gerados no build, não ficam aqui
+│
+├── scripts/
+│   ├── prerender.mjs        # Pré-renderização + sitemap + head do HTML
+│   └── llms-txt.mjs         # Conteúdo do /llms.txt e /llms-full.txt
+│
+├── docs/
+│   └── seo/
+│       └── checklist-google.md  # ⭐ Correções no Google Meu Negócio e Search Console
 │
 ├── src/
 │   ├── components/
@@ -74,7 +83,8 @@ gvm-1/
 │   │   └── Stepper.jsx      # Stepper animado (Motion) — reservado
 │   │
 │   ├── data/
-│   │   └── content.js       # ⭐ FONTE ÚNICA DE DADOS do site
+│   │   ├── content.js       # ⭐ FONTE ÚNICA DE DADOS do site
+│   │   └── seo.js           # ⭐ Títulos, canonical, schema.org e SITE_URL
 │   │
 │   ├── hooks/
 │   │   └── useReveal.js     # Hook do IntersectionObserver para animações
@@ -88,7 +98,8 @@ gvm-1/
 │   │   └── NotFound.jsx     # Página 404
 │   │
 │   ├── App.jsx              # Roteamento e shell da aplicação
-│   ├── main.jsx             # Ponto de entrada React
+│   ├── main.jsx             # Ponto de entrada no navegador (hidrata o HTML pronto)
+│   ├── entry-server.jsx     # Ponto de entrada do build (pré-renderização)
 │   └── styles.css           # Todos os estilos globais
 │
 └── index.html               # HTML raiz (meta tags, OG, favicon, fonte)
@@ -112,6 +123,39 @@ npm run build
 # Pré-visualizar build
 npm run preview
 ```
+
+O `npm run build` roda em três etapas: o build normal do Vite, um build para Node
+(`src/entry-server.jsx`) e o `scripts/prerender.mjs`, que renderiza cada rota,
+grava o HTML dentro do `<div id="root">` e gera `sitemap.xml`, `llms.txt` e
+`llms-full.txt`.
+
+Ao pré-visualizar, use a **barra final** nas rotas internas
+(`http://127.0.0.1:4173/sobre/`). Sem ela o `vite preview` cai no fallback de SPA
+e devolve a home; na Vercel os rewrites do `vercel.json` já entregam o arquivo
+certo.
+
+---
+
+## 🔎 SEO e visibilidade em LLMs
+
+Tudo que descreve o site para buscadores e modelos de linguagem nasce de duas
+fontes: `src/data/content.js` (o conteúdo) e `src/data/seo.js` (títulos,
+descrições, canonical e schema.org).
+
+| Arquivo publicado | De onde vem |
+| ----------------- | ----------- |
+| `<title>`, meta tags e JSON-LD de cada página | `src/data/seo.js`, gravados no build |
+| `/sitemap.xml` | gerado de `seoPages` (`scripts/prerender.mjs`) |
+| `/llms.txt` e `/llms-full.txt` | gerados de `content.js` (`scripts/llms-txt.mjs`) |
+| `/robots.txt` | `public/robots.txt` (arquivo manual) |
+
+**Ao mudar de domínio**, altere apenas `SITE_URL` em `src/data/seo.js` — canonical,
+sitemap, dados estruturados e llms.txt seguem junto. O `public/robots.txt` é o
+único que precisa de ajuste manual.
+
+As correções que **não são de código** — perfil do Google Meu Negócio, Search
+Console, avaliações — estão em
+[`docs/seo/checklist-google.md`](docs/seo/checklist-google.md).
 
 ---
 
@@ -249,7 +293,7 @@ Isso remove o CTA da Home, o item do menu, a rota (passa a responder 404) e as m
 | `clinicas/index.html` | pasta inteira |
 | `src/styles.css` | bloco `Campanha temporária: Conversão GVM` |
 | `src/App.jsx`, `src/pages/Home.jsx`, `src/data/content.js`, `src/data/seo.js` | linhas com `// campanha temporária` |
-| `vite.config.js`, `vercel.json`, `public/sitemap.xml` | entrada `clinicas` |
+| `vite.config.js`, `vercel.json` | entrada `clinicas` |
 
 ---
 
@@ -257,14 +301,17 @@ Isso remove o CTA da Home, o item do menu, a rota (passa a responder 404) e as m
 
 ### 🔴 Prioritário
 
-- [ ] **Meta tags dinâmicas por página** — atualmente todas as páginas compartilham o mesmo `<title>` e `<meta description>`. Implementar `document.title` + meta via `useEffect` em cada página, ou migrar para SSG (Astro/Next.js)
+- [ ] **Corrigir o site no Google Meu Negócio** — o perfil da GVM aponta para `gvmdigital.com`, que é de uma agência americana homônima. É a causa principal de outras empresas aparecerem antes da GVM na busca. Passo a passo em [`docs/seo/checklist-google.md`](docs/seo/checklist-google.md)
+- [ ] **Domínio próprio** — `gvmdigital.com.br` ou `gvm.digital`. O `.com` está ocupado pelo homônimo. Trocar exige alterar só `SITE_URL` em `src/data/seo.js`
+- [x] **Meta tags dinâmicas por página** — cada rota tem título, descrição, canonical e dados estruturados próprios (`src/data/seo.js`), gravados no HTML durante o build
+- [x] **Conteúdo legível sem JavaScript** — páginas pré-renderizadas no build (`scripts/prerender.mjs`); antes o HTML chegava vazio para buscadores e LLMs
 - [ ] **Integração de formulário real** — o formulário monta a mensagem e abre o WhatsApp, mas não armazena os dados em nenhum lugar. Integrar com [Formspree](https://formspree.io), [EmailJS](https://emailjs.com) ou Supabase para receber os dados também por e-mail
 - [ ] **LinkedIn da empresa** — não há perfil de empresa. Criar página no LinkedIn e adicionar ao rodapé
 
 ### 🟡 Importante
 
 - [ ] **Depoimentos de clientes** — seção de `testimonials` na Home ou na página Sobre (reforça credibilidade)
-- [ ] **Preload das imagens hero** — adicionar `<link rel="preload" as="image">` no `index.html` para `hero-devices.png` e `office-team.png` (melhora LCP / Core Web Vitals)
+- [x] **Preload das imagens hero** — o React 19 gera o `<link rel="preload">` das imagens com `fetchPriority="high"`, e a pré-renderização o grava no `<head>`
 - [x] **OG image personalizada** — imagem 1200×630px criada em `public/og-image.png` para compartilhamento no WhatsApp/Instagram/LinkedIn
 - [ ] **Google Analytics / Meta Pixel** — sem rastreamento de visitas ou conversões
 
@@ -279,7 +326,7 @@ Isso remove o CTA da Home, o item do menu, a rota (passa a responder 404) e as m
 
 ## 🌐 Deploy
 
-O site é um SPA (Single Page Application) hospedado na **[Vercel](https://gvmdigital.vercel.app)**.
+O site é um SPA em React hospedado na **[Vercel](https://gvmdigital.vercel.app)**, com as páginas **pré-renderizadas no build**: o HTML entregue já contém todo o texto, e o React apenas hidrata essa marcação no navegador. Isso existe para que buscadores e modelos de linguagem consigam ler o conteúdo sem executar JavaScript.
 
 O arquivo `vercel.json` na raiz do projeto configura os rewrites de rota, garantindo que caminhos como `/servicos` ou `/portfolio` funcionem corretamente ao serem acessados diretamente ou ao recarregar a página:
 
