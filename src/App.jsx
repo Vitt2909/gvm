@@ -24,19 +24,22 @@ function normalizePath(pathname) {
   return pathname.replace(/\/+$/, "") || "/";
 }
 
-export default function App() {
-  const [path, setPath] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    const redirectedPath = params.get("redirect");
+export default function App({ initialPath }) {
+  // initialPath só é passado na pré-renderização (Node, sem window).
+  const [path, setPath] = useState(
+    () => initialPath ?? normalizePath(window.location.pathname)
+  );
 
-    if (redirectedPath) {
-      const target = normalizePath(redirectedPath.split("?")[0]);
-      window.history.replaceState({}, "", target);
-      return target;
-    }
+  // Fallback SPA (404.html): "?redirect=/rota" vira a rota real. Fica em efeito
+  // para a primeira renderização ser igual à pré-renderizada e a hidratação casar.
+  useEffect(() => {
+    const redirectedPath = new URLSearchParams(window.location.search).get("redirect");
+    if (!redirectedPath) return;
 
-    return normalizePath(window.location.pathname);
-  });
+    const target = normalizePath(redirectedPath.split("?")[0]);
+    window.history.replaceState({}, "", target);
+    setPath(target);
+  }, []);
 
   useEffect(() => {
     const onPopState = () => setPath(normalizePath(window.location.pathname));
