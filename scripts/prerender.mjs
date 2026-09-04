@@ -8,6 +8,7 @@
  *
  * O visitante não nota diferença — o React hidrata a marcação já pronta.
  */
+import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, resolve, basename } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -103,8 +104,138 @@ function htmlFileForRoute(route) {
     : resolve(distDir, `.${route}/index.html`);
 }
 
+// O segundo argumento de String.replace é sempre uma função nestes utilitários:
+// como string, sequências como "$$" ou "$&" seriam interpretadas como padrões de
+// substituição e corromperiam o conteúdo (um preço "R$ 1.200" viraria outra coisa).
 function injectIntoHead(html, snippet) {
-  return html.replace("</head>", `    ${snippet}\n  </head>`);
+  return html.replace("</head>", () => `    ${snippet}\n  </head>`);
+}
+
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Troca o content="" da meta identificada por `matcher`, ex.: 'name="description"'. */
+function setMetaContent(html, matcher, value) {
+  const tag = html.match(new RegExp(`<meta[^>]*${escapeRegExp(matcher)}[^>]*>`));
+  if (!tag) return html;
+
+  const updated = tag[0].replace(
+    /content="[^"]*"/,
+    () => `content="${escapeAttr(value)}"`
+  );
+
+  return html.replace(tag[0], () => updated);
+}
+
+const JSON_LD_ID = "structured-data-local-business";
+
+/**
+ * Alinha o <head> estático com src/data/seo.js.
+ *
+ * Título, descrição e dados estruturados estavam escritos à mão em cada shell
+ * (index.html, sobre/index.html, ...) e só o da home tinha JSON-LD. Como esse é
+ * exatamente o HTML que o robô lê antes de qualquer JavaScript, mantê-lo em duas
+ * fontes significa publicar informação desatualizada. Aqui ele é reescrito no
+ * build a partir da fonte única.
+ */
+function syncHead(html, route, { getSeoForPath, getStructuredData }) {
+  const seo = getSeoForPath(route);
+
+  let result = html.replace(
+    /<title>[\s\S]*?<\/title>/,
+    () => `<title>${escapeAttr(seo.title)}</title>`
+  );
+
+  result = setMetaContent(result, 'name="description"', seo.description);
+  result = setMetaContent(result, 'property="og:title"', seo.title);
+  result = setMetaContent(result, 'property="og:description"', seo.description);
+  result = setMetaContent(result, 'property="og:url"', seo.canonical);
+  result = setMetaContent(result, 'name="twitter:title"', seo.title);
+  result = setMetaContent(result, 'name="twitter:description"', seo.description);
+
+  result = result.replace(
+    /<link rel="canonical" href="[^"]*"\s*\/?>/,
+    () => `<link rel="canonical" href="${escapeAttr(seo.canonical)}" />`
+  );
+
+  const data = getStructuredData(route);
+  if (data) {
+    // "<" escapado para um valor de texto nunca poder fechar o <script>.
+    const json = JSON.stringify(data).replace(/</g, "\\u003c");
+    const script = `<script id="${JSON_LD_ID}" type="application/ld+json">${json}</script>`;
+    const existing = result.match(
+      new RegExp(`<script id="${JSON_LD_ID}"[\\s\\S]*?<\\/script>`)
+    );
+
+    result = existing
+      ? result.replace(existing[0], () => script)
+      : injectIntoHead(result, script);
+  }
+
+  return result;
+}
+
+/**
+ * Data da última alteração do conteúdo. O commit mais recente descreve melhor a
+ * realidade do que a data do build, que mudaria a cada deploy sem o site ter
+ * mudado — e um lastmod sempre "hoje" é ignorado pelo Google.
+ */
+function getLastModified() {
+  try {
+    const date = execFileSync("git", ["log", "-1", "--format=%cs"], {
+      cwd: root,
+      encoding: "utf8"
+    }).trim();
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+  } catch {
+    // Sem git disponível (ou repositório ausente): cai para a data do build.
+  }
+
+  return new Date().toISOString().slice(0, 10);
+}
+
+/**
+ * O sitemap era um arquivo estático em public/, com URLs e datas escritas à mão.
+ * Agora sai de seoPages, a mesma fonte das rotas e prioridades, para não existir
+ * uma página no site que falte no sitemap (ou o contrário).
+ */
+function writeSitemap({ routes, getSeoForPath }) {
+  const lastmod = getLastModified();
+
+  const urls = routes.map((route) => {
+    const seo = getSeoForPath(route);
+    const changefreq = route === "/" ? "weekly" : "monthly";
+
+    return [
+      "  <url>",
+      `    <loc>${seo.canonical}</loc>`,
+      `    <lastmod>${lastmod}</lastmod>`,
+      `    <changefreq>${changefreq}</changefreq>`,
+      `    <priority>${seo.priority}</priority>`,
+      "  </url>"
+    ].join("\n");
+  });
+
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...urls,
+    "</urlset>",
+    ""
+  ].join("\n");
+
+  writeFileSync(resolve(distDir, "sitemap.xml"), xml);
+  console.log(`  ✓ sitemap.xml — ${routes.length} URLs (lastmod ${lastmod})`);
 }
 
 async function main() {
@@ -115,7 +246,9 @@ async function main() {
   }
 
   const assetMap = buildAssetMap();
-  const { render, routes } = await import(pathToFileURL(ssrEntry).href);
+  const { render, routes, getSeoForPath, getStructuredData } = await import(
+    pathToFileURL(ssrEntry).href
+  );
 
   let count = 0;
 
@@ -138,13 +271,16 @@ async function main() {
       throw new Error(`${file} não tem <div id="root"></div> para receber o conteúdo.`);
     }
 
-    html = html.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+    html = html.replace('<div id="root"></div>', () => `<div id="root">${body}</div>`);
     html = injectIntoHead(html, `${head}${NOSCRIPT_REVEAL}`);
+    html = syncHead(html, route, { getSeoForPath, getStructuredData });
 
     writeFileSync(file, html);
     console.log(`  ✓ ${route} — ${(body.length / 1024).toFixed(1)} kB de HTML`);
     count += 1;
   }
+
+  writeSitemap({ routes, getSeoForPath });
 
   console.log(`\nPré-renderização concluída: ${count} página(s).`);
 }

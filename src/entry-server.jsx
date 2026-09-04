@@ -11,7 +11,7 @@
  */
 import { renderToString } from "react-dom/server";
 import App from "./App.jsx";
-import { seoPages } from "./data/seo.js";
+import { getSeoForPath, getStructuredData, seoPages } from "./data/seo.js";
 
 // Fonte única das rotas: o mesmo objeto que gera títulos, canonical e sitemap.
 export const routes = Object.keys(seoPages);
@@ -19,3 +19,8 @@ export const routes = Object.keys(seoPages);
 export function render(path) {
   return renderToString(<App initialPath={path} />);
 }
+
+// Reexportados para o scripts/prerender.mjs gravar título, meta tags e dados
+// estruturados no HTML a partir da mesma fonte que o site usa em tempo de
+// execução, sem uma segunda cópia para desatualizar.
+export { getSeoForPath, getStructuredData };

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import {
-  getHomeStructuredData,
   getSeoForPath,
+  getStructuredData,
   OG_IMAGE_URL,
   SITE_NAME
 } from "../data/seo.js";
@@ -28,11 +28,15 @@ function upsertCanonical(href) {
   element.setAttribute("href", href);
 }
 
+// Cada rota publica o próprio grafo (empresa + site + página + trilha, mais
+// FAQ onde as perguntas aparecem na tela). Antes só a home tinha dados
+// estruturados, e as demais páginas ficavam sem nenhum.
 function syncStructuredData(path) {
   const id = "structured-data-local-business";
   const existing = document.getElementById(id);
+  const data = getStructuredData(path);
 
-  if (path !== "/") {
+  if (!data) {
     existing?.remove();
     return;
   }
@@ -40,7 +44,7 @@ function syncStructuredData(path) {
   const element = existing ?? document.createElement("script");
   element.id = id;
   element.type = "application/ld+json";
-  element.textContent = JSON.stringify(getHomeStructuredData());
+  element.textContent = JSON.stringify(data);
 
   if (!existing) {
     document.head.appendChild(element);
