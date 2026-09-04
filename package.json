@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --configLoader native --host 127.0.0.1",
-    "build": "vite --configLoader native build",
+    "build": "vite --configLoader native build --manifest && vite --configLoader native build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite --configLoader native preview --host 127.0.0.1"
   },
   "dependencies": {
