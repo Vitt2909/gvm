@@ -1,5 +1,6 @@
 import { CAMPAIGN_ENABLED, CAMPAIGN_PATH, campaign, campaignSeo } from "./campaign.js"; // campanha temporária
 import { faqs, founders, services } from "./content.js";
+import { PHASES, PLACA_ENABLED, PLACA_PATH, getPlacaFaqs, getPlacaPhase, placa, placaSeo } from "./placa.js"; // plaquinha NFC
 
 // Trocar SITE_URL é o único passo necessário quando a GVM tiver domínio próprio:
 // canonical, sitemap, dados estruturados e llms.txt saem todos daqui.
@@ -51,7 +52,8 @@ export const seoPages = {
       "Fale com a GVM Digital em Manaus e solicite uma proposta para site, landing page, identidade visual, automação ou estratégia digital.",
     priority: "0.7"
   },
-  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: campaignSeo } : {}) // campanha temporária
+  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: campaignSeo } : {}), // campanha temporária
+  ...(PLACA_ENABLED ? { [PLACA_PATH]: placaSeo } : {}) // plaquinha NFC
 };
 
 // Rótulo curto para a trilha de navegação, que não deve repetir o título inteiro.
@@ -60,7 +62,8 @@ export const breadcrumbLabels = {
   "/servicos": "Serviços",
   "/portfolio": "Portfólio",
   "/contato": "Contato",
-  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: campaign.name } : {}) // campanha temporária
+  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: campaign.name } : {}), // campanha temporária
+  ...(PLACA_ENABLED ? { [PLACA_PATH]: placa.shortName } : {}) // plaquinha NFC
 };
 
 export const notFoundSeo = {
@@ -205,8 +208,8 @@ function getBreadcrumbNode(path) {
 }
 
 // O FAQPage só vale onde as perguntas aparecem de fato na tela: as gerais são
-// renderizadas em /servicos (src/pages/Services.jsx) e as da campanha em
-// /clinicas (src/pages/Campaign.jsx).
+// renderizadas em /servicos (src/pages/Services.jsx), as da campanha em
+// /clinicas (src/pages/Campaign.jsx) e as da plaquinha em /placa (src/pages/Placa.jsx).
 function getFaqNode(path, entries) {
   return {
     "@type": "FAQPage",
@@ -216,6 +219,28 @@ function getFaqNode(path, entries) {
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: faq.answer }
     }))
+  };
+}
+
+// A disponibilidade segue a fase: no build, a da data do deploy; no navegador
+// (src/components/SEO.jsx), a do momento da visita.
+function getPlacaProductNode(path) {
+  const onSale = getPlacaPhase() === PHASES.sales;
+
+  return {
+    "@type": "Product",
+    "@id": `${getCanonicalUrl(path)}#product`,
+    name: placa.name,
+    description: placaSeo.description,
+    brand: { "@id": ORGANIZATION_ID },
+    offers: {
+      "@type": "Offer",
+      url: getCanonicalUrl(path),
+      price: placa.priceValue,
+      priceCurrency: "BRL",
+      availability: onSale ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
+      seller: { "@id": ORGANIZATION_ID }
+    }
   };
 }
 
@@ -249,6 +274,11 @@ export function getStructuredData(pathname) {
 
   if (CAMPAIGN_ENABLED && path === CAMPAIGN_PATH && campaign.faqs?.length) {
     graph.push(getFaqNode(path, campaign.faqs)); // campanha temporária
+  }
+
+  if (PLACA_ENABLED && path === PLACA_PATH) {
+    // plaquinha NFC: FAQ na fase atual, igual ao que a página mostra
+    graph.push(getPlacaProductNode(path), getFaqNode(path, getPlacaFaqs(getPlacaPhase())));
   }
 
   return { "@context": "https://schema.org", "@graph": graph };

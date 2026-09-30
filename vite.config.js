@@ -15,7 +15,8 @@ export default defineConfig({
         servicos: resolve(__dirname, "servicos/index.html"),
         portfolio: resolve(__dirname, "portfolio/index.html"),
         contato: resolve(__dirname, "contato/index.html"),
-        clinicas: resolve(__dirname, "clinicas/index.html") // campanha temporária
+        clinicas: resolve(__dirname, "clinicas/index.html"), // campanha temporária
+        placa: resolve(__dirname, "placa/index.html") // plaquinha NFC
       }
     }
   },

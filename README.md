@@ -95,6 +95,7 @@ gvm-1/
 │   │   ├── Services.jsx     # Serviços — cards, detalhes, processo, FAQ
 │   │   ├── Portfolio.jsx    # Portfólio — grid com filtros
 │   │   ├── Contact.jsx      # Contato — formulário → WhatsApp
+│   │   ├── Placa.jsx        # Plaquinha NFC — pré-venda / vendas (/placa)
 │   │   └── NotFound.jsx     # Página 404
 │   │
 │   ├── App.jsx              # Roteamento e shell da aplicação
@@ -294,6 +295,35 @@ Isso remove o CTA da Home, o item do menu, a rota (passa a responder 404) e as m
 | `src/styles.css` | bloco `Campanha temporária: Conversão GVM` |
 | `src/App.jsx`, `src/pages/Home.jsx`, `src/data/content.js`, `src/data/seo.js` | linhas com `// campanha temporária` |
 | `vite.config.js`, `vercel.json` | entrada `clinicas` |
+
+---
+
+## 🏷️ Plaquinha NFC + QR Code — pré-venda e vendas (`/placa`)
+
+Página da plaquinha de avaliações no Google (R$ 70, venda presencial). Ela tem duas fases e **troca sozinha pela data**, sem precisar de novo deploy:
+
+| Fase | Quando | O formulário grava |
+|------|--------|--------------------|
+| Pré-venda | até `SALES_START` | lista de interesse (`fase = pre-venda`) |
+| Vendas | a partir de `SALES_START` | pedido (`fase = venda`) |
+
+Tudo fica em `src/data/placa.js`: preço, textos das duas fases, FAQ e a data de virada.
+
+```js
+export const SALES_START = "2026-10-14T08:00:00-04:00"; // horário de Manaus
+```
+
+- **Ver a fase de vendas antes da data:** abra `/placa?fase=venda` (só muda a sua tela; o que for enviado assim entra como `venda`).
+- **Tirar a página do ar:** `PLACA_ENABLED = false` (remove rota, banner da Home, sitemap e meta tags).
+- Depois da virada, um novo deploy atualiza o HTML pré-renderizado e o `schema.org` (de `PreOrder` para `InStock`). O visitante já vê a fase certa antes disso.
+
+### Onde ver quem se cadastrou
+
+Os cadastros ficam no Supabase, projeto **gvm-digital** → *Table Editor* → tabela **`plaquinha_leads`**. Dá para filtrar por `fase` e exportar em CSV pelo próprio painel. Depois de falar com a pessoa, marque a coluna `contatado`.
+
+O site usa a chave **publicável** (fica no navegador de propósito) e a tabela só aceita `INSERT` dela: ninguém consegue ler, alterar ou apagar a lista pelo site. O mesmo WhatsApp não entra duas vezes na mesma fase. A estrutura da tabela está em `supabase/migrations/`.
+
+> **Atenção:** projetos do plano gratuito do Supabase são pausados depois de 7 dias sem uso. Se isso acontecer, o formulário mostra uma mensagem de erro com o link do direct, e basta reativar o projeto no painel.
 
 ---
 

@@ -21,6 +21,10 @@
       "destination": "/clinicas/index.html"
     },
     {
+      "source": "/placa",
+      "destination": "/placa/index.html"
+    },
+    {
       "source": "/((?!assets/|favicon\\.ico|robots\\.txt|sitemap\\.xml|llms\\.txt|llms-full\\.txt).*)",
       "destination": "/index.html"
     }
