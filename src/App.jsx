@@ -9,7 +9,9 @@ import Portfolio from "./pages/Portfolio.jsx";
 import Contact from "./pages/Contact.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Campaign from "./pages/Campaign.jsx"; // campanha temporária
+import Placa from "./pages/Placa.jsx"; // plaquinha NFC
 import { CAMPAIGN_ENABLED, CAMPAIGN_PATH } from "./data/campaign.js"; // campanha temporária
+import { PLACA_ENABLED, PLACA_PATH } from "./data/placa.js"; // plaquinha NFC
 
 const routes = {
   "/": Home,
@@ -17,7 +19,8 @@ const routes = {
   "/servicos": Services,
   "/portfolio": Portfolio,
   "/contato": Contact,
-  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: Campaign } : {}) // campanha temporária
+  ...(CAMPAIGN_ENABLED ? { [CAMPAIGN_PATH]: Campaign } : {}), // campanha temporária
+  ...(PLACA_ENABLED ? { [PLACA_PATH]: Placa } : {}) // plaquinha NFC
 };
 
 function normalizePath(pathname) {

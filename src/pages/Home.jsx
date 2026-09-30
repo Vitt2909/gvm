@@ -2,6 +2,7 @@ import { CheckCircle2 } from "lucide-react";
 import ButtonLink from "../components/ButtonLink.jsx";
 import CampaignBanner from "../components/CampaignBanner.jsx"; // campanha temporária
 import CTASection from "../components/CTASection.jsx";
+import PlacaBanner from "../components/PlacaBanner.jsx"; // plaquinha NFC
 import Hero from "../components/Hero.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import Reveal from "../components/Reveal.jsx";
@@ -20,6 +21,7 @@ export default function Home({ onNavigate }) {
       />
 
       <CampaignBanner onNavigate={onNavigate} /> {/* campanha temporária */}
+      <PlacaBanner onNavigate={onNavigate} /> {/* plaquinha NFC */}
 
       <section className="section">
         <div className="container">
